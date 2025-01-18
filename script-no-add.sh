@@ -31,16 +31,10 @@ while read line; do
         then
                 temp=$(echo $temp| jq -r 'to_entries[]' | jq -r ".key")
                 echo $temp | tr -d ' ' | fold -w 40 >> $output
-                for line2 in $(echo $temp | tr -d ' ' | fold -w 40)
-                do
-                        curl -s -H "Authorization: Bearer $apitoken" https://api.torbox.app/v1/api/torrents/createtorrent -F magnet="magnet:?xt=urn:btih:$line2"
-                        countCached=$(echo $countCached+1 | bc)
-                        wait 1
-                done
         fi
         count=$(echo $count+150 | bc)
         percent="$(echo "$count" "$tasks_in_total" |awk '{printf "%.2f", $1 * 100 / $2}')"
-        echo "$count / $tasks_in_total $percent % - Cached: $countCached"
+        echo "$count / $tasks_in_total $percent %
 done < <(cat $tempfile)
 
 rm $tempfile
