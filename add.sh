@@ -10,7 +10,7 @@ do
 done
 
 percentile=100
-tasks_in_total=$(echo $hashes | tr ' ' ',' | tr -d '"' | fold -w 41 | wc -l)
+tasks_in_total=$(cat $input | wc -l)
 count=0
 
 # For each hash, call API to add torrent and remove from file
