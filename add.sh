@@ -15,13 +15,13 @@ count=0
 
 # For each hash, call API to add torrent and remove from file
 while read line; do
-        temp=$(curl -s -H "Authorization: $apitoken" https://api.torbox.app/v1/api/torrents/createtorrent -F magnet=$line)
+        temp=$(curl -s -H "Authorization: Bearer $apitoken" https://api.torbox.app/v1/api/torrents/createtorrent -F magnet="magnet:?xt=urn:btih:$line")
 
         while [[ "$temp" == "rate limit exceeded." ]];
         do
                 echo "Rate limit exceeded. Sleeping 60s and retrying"
                 sleep 60
-                temp=$(curl -s -H "Authorization: $apitoken" https://api.torbox.app/v1/api/torrents/createtorrent -F magnet=$line)
+                temp=$(curl -s -H "Authorization: Bearer $apitoken" https://api.torbox.app/v1/api/torrents/createtorrent -F magnet="magnet:?xt=urn:btih:$line")
         done
 
         sed -i "/$line/d" $input
