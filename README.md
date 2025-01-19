@@ -1,5 +1,5 @@
 # Torbox Availability Scanner
-Scans files cached on Torbox and outputs hashes of cached files ready to be added
+Scans files cached on Torbox and outputs hashes of cached files ready to be added. Default input is dmm.json (json backup from DMM)
 
 ```
 curl -s https://raw.githubusercontent.com/Reasonable-Grape2698/torbox_dmm_availability_scanner/refs/heads/main/script.sh | bash -s -- -a (APIKEY)
